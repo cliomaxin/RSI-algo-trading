@@ -7,8 +7,8 @@
 
 // --- Strategy Inputs ---
 input int      InpRsiLength   = 14;          // RSI Period
-input int      InpRsiOver     = 67;          // SELL Threshold
-input int      InpRsiUnder    = 37;          // BUY Threshold
+input int      InpRsiOver     = 75;          // SELL Threshold
+input int      InpRsiUnder    = 25;          // BUY Threshold
 input double   InpLotSize     = 0.02;         // Trading Lot Size
 input int      InpMagicNum    = 987654;      // Unique ID for this bot
 
@@ -32,7 +32,7 @@ int OnInit()
    // Pre-calculate current RSI values to "warm up" the math
    WarmUpRSI();
    
-   SendNotification("🚀 RSI Sniper Started | Buy < 37, Sell > 67");
+   SendNotification("🚀 RSI Sniper Started | Buy < 25, Sell > 75");
    return(INIT_SUCCEEDED);
 }
 
@@ -77,16 +77,16 @@ void OnTick()
    // --- ENTRY LOGIC (If no trade is open) ---
    if(!hasPosition)
    {
-      // BUY if RSI drops below 37
+      // BUY if RSI drops below 25
       if(rsi < InpRsiUnder)
       {
-         if(trade.Buy(InpLotSize, _Symbol, SymbolInfoDouble(_Symbol, SYMBOL_ASK), 0, 0, "RSI Under 37"))
+         if(trade.Buy(InpLotSize, _Symbol, SymbolInfoDouble(_Symbol, SYMBOL_ASK), 0, 0, "RSI Under 25"))
             if(InpNotifyTrade) SendNotification("📈 BUY Triggered | RSI: " + DoubleToString(rsi, 2));
       }
-      // SELL if RSI rises above 67
+      // SELL if RSI rises above 75
       else if(rsi > InpRsiOver)
       {
-         if(trade.Sell(InpLotSize, _Symbol, SymbolInfoDouble(_Symbol, SYMBOL_BID), 0, 0, "RSI Over 67"))
+         if(trade.Sell(InpLotSize, _Symbol, SymbolInfoDouble(_Symbol, SYMBOL_BID), 0, 0, "RSI Over 75"))
             if(InpNotifyTrade) SendNotification("📉 SELL Triggered | RSI: " + DoubleToString(rsi, 2));
       }
    }
