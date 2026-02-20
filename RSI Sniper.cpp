@@ -9,7 +9,7 @@
 input int      InpRsiLength   = 14;          // RSI Period
 input int      InpRsiOver     = 67;          // SELL Threshold
 input int      InpRsiUnder    = 37;          // BUY Threshold
-input double   InpLotSize     = 0.1;         // Trading Lot Size
+input double   InpLotSize     = 0.02;         // Trading Lot Size
 input int      InpMagicNum    = 987654;      // Unique ID for this bot
 
 // --- Heartbeat & Notification Inputs ---
